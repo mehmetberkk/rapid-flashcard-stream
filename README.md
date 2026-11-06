@@ -21,10 +21,12 @@ Uygulama, bilişsel psikoloji ve görsel ergonomi prensipleri (gözün yatay sak
 - **Faz 2 (BACK)**: Süre dolduğunda kelime kaybolur, birebir aynı merkez noktasında Türkçe anlam belirir.
 - **Sıfır Animasyon (Instant Cut)**: 3D çevirme veya kayma gibi dikkat dağıtan animasyonlar yerine göz yormayan anlık kesme kullanılır.
 
-### 2. Doğrusal ve Hassas Süre Kontrolü (1 ms Hassasiyet)
-- **1 ms Hassasiyetli Slider**: 50 ms ile 2000 ms aralığında kesintisiz doğrusal ayar.
-- **Doğrudan Sayısal Giriş**: Slider yanında klavyeyle istediğiniz tam ms değerini (örn. `187` ms) girebileceğiniz senkronize kutu.
-- **Süre Odaklı Butonlar**: `-` butonu süreyi azaltarak akışı hızlandırır; `+` butonu süreyi artırarak kartı ekranda daha uzun tutar.
+### 2. Sol Dikey Hız Kontrol Kulesi (Vertical Speed Dock)
+- **Bağımsız Katman (0px Odak Kayması)**: Hız ayar bileşenleri alt bardan sol kenara taşındı. Belge akışının dışında tutulduğu için merkezdeki kelime odağının simetrisi bozulmaz.
+- **1 ms Hassasiyetli Dikey Slider**: 176px uzunluğunda native dikey slider (`writing-mode: vertical-lr; direction: rtl`); yukarı çekildikçe ms artar (üstteki `+` butonuyla eşleşir), aşağı çekildikçe ms azalır (alttaki `-` butonuyla eşleşir).
+- **Doğrudan Sayısal Giriş**: Klavyeyle istediğiniz tam ms değerini (örn. `187` ms) doğrudan girebileceğiniz senkronize kutu ve `~kart/sn` hız göstergesi.
+- **Hazır Hız Presetleri**: 2 sütunlu kompakt `100ms`, `200ms`, `350ms`, `500ms`, `1000ms` kısayol butonları.
+- **Sadeleştirilmiş Alt Bar**: Alt kısımda yalnızca ilerleme durumu, ana oynatma butonları ve klavye kısayol ipuçları yer alır.
 
 ### 3. Favorilerim Akış Modu
 - **Türetilmiş Deste (Derived Deck)**: "Tüm Kartlar" ve "Favorilerim" arasında tek tıkla geçiş.
@@ -57,7 +59,7 @@ Gözünüzü ekrandan ayırmadan tüm akışı klavyeden yönetebilirsiniz:
 - **Zamanlama Motoru**: `performance.now()` tabanlı kaymasız delta-time akümülatör döngüsü
 - **Veritabanı**: Dexie.js (IndexedDB)
 - **Paketleme**: `electron-builder` (Standalone Windows `.exe`)
-- **Testler**: Vitest (19 birim testi, %100 kapsama)
+- **Testler**: Vitest (20 birim testi, %100 kapsama)
 
 ---
 
@@ -115,3 +117,4 @@ yds-app/
 ## 📄 Lisans
 
 MIT
+

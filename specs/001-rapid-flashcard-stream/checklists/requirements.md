@@ -32,8 +32,10 @@
 
 ## Notes
 
-- Updated with Granular Duration Control (1ms step, direct numeric input, duration-oriented buttons '-' decreases ms, '+' increases ms).
-- Updated with "Favorilerim" (Favorites) deck mode and dedicated isolated stream playback with empty-favorites warning.
-- Updated with Single-Word Meaning Ergonomics (1 English Word = 1 Turkish Word) to eliminate horizontal ocular saccades.
+- Updated with Left Vertical Speed Dock specifications:
+  - Positioned at left edge (vertically centered, 24px inset) as an independent overlay.
+  - Optical focal center of the vocabulary card remains 100% unmoved (0px shift).
+  - Internal hierarchy: [⚡ İkon] -> [ 50 ] ms input & rate -> (+) ms increase button -> Vertical Slider (min 160px height; dragging up increases ms, dragging down decreases ms) -> (-) ms decrease button -> Preset speed buttons.
+  - Bottom bar streamlined exclusively to deck progress, playback transport buttons, and shortcut badges.
 - All validation criteria passed.
 - Specification is ready for `/speckit-plan`.

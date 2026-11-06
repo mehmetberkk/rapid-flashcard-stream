@@ -68,3 +68,12 @@
 - **Rationale**:
   - Multi-word phrases or definitions with comma separations require horizontal eye saccades.
   - At speeds under 300ms, saccades induce cognitive fatigue and blur recognition. Restricting definition to a single Turkish equivalent keeps user gaze perfectly motionless at the screen center.
+
+## 11. Left Vertical Speed Dock & Vertical Slider Architecture
+
+- **Decision**: **Independent fixed overlay dock (`fixed left-6 top-1/2 -translate-y-1/2 z-20`) with Chromium-native CSS vertical slider (`writing-mode: vertical-lr`, `direction: rtl`, fixed height `160px - 180px`) and streamlined bottom footer**.
+- **Rationale**:
+  - **Fixed / Out-of-Flow Overlay**: Positioning the dock out of document flow (`position: fixed` or `position: absolute` with `left: 24px`, `top: 50%`, `transform: translateY(-50%)`) guarantees that the central vocabulary card (`FocalCardView`) remains locked on the exact geometric center of the viewport (0px layout displacement), strictly honoring Constitution Principle I (Fixed Focal Point).
+  - **Native Chromium Vertical Slider**: Native `<input type="range">` with `writing-mode: vertical-lr` and `direction: rtl` naturally flips the axis in Chromium/Electron so that the top corresponds to maximum duration in milliseconds (longer display time, matching the `+` button directly above it) and the bottom corresponds to minimum duration in milliseconds (shorter display time, matching the `-` button directly below it) without requiring JavaScript drag handlers or external dependencies.
+  - **Compact Width (`88px - 110px`)**: With a compact width (e.g. 96px / `w-24`), the control dock stays completely clear of the central 300x200 pixel focal area on all supported desktop resolutions (1024x768 and up).
+  - **Bottom Footer Streamlining**: Removing the horizontal slider from the footer simplifies the bottom bar to only three intuitive sections: deck progress bar (`ProgressBar`), central transport buttons (Reset, Prev, Play/Pause, Next), and keyboard shortcut reminder badges.

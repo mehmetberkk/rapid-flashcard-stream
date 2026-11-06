@@ -117,7 +117,15 @@ export const StreamView: React.FC<StreamViewProps> = ({ deck, onBackToDashboard 
   }
 
   return (
-    <div className="flex flex-col h-screen bg-surface-950 text-slate-100 select-none overflow-hidden justify-between p-6">
+    <div className="flex flex-col h-screen bg-surface-950 text-slate-100 select-none overflow-hidden justify-between p-6 relative">
+      {/* Left Vertical Speed Dock (Independent Floating Overlay - 0px Focal Shift) */}
+      <SpeedControl
+        intervalMs={intervalMs}
+        onSpeedChange={setIntervalMs}
+        onStepDelta={adjustSpeed}
+        className="fixed left-6 top-1/2 -translate-y-1/2 z-20"
+      />
+
       {/* Top Header */}
       <header className="flex items-center justify-between max-w-5xl mx-auto w-full gap-4">
         <button
@@ -212,7 +220,7 @@ export const StreamView: React.FC<StreamViewProps> = ({ deck, onBackToDashboard 
         )}
       </main>
 
-      {/* Bottom Controls Area */}
+      {/* Bottom Controls Area (Streamlined Transport Footer) */}
       <footer className="max-w-4xl mx-auto w-full space-y-5">
         {/* Progress Bar */}
         <ProgressBar
@@ -220,13 +228,6 @@ export const StreamView: React.FC<StreamViewProps> = ({ deck, onBackToDashboard 
           totalCards={activeCards.length}
           loop={loop}
           onToggleLoop={() => setLoop(!loop)}
-        />
-
-        {/* Speed Controls Slider */}
-        <SpeedControl
-          intervalMs={intervalMs}
-          onSpeedChange={setIntervalMs}
-          onStepDelta={adjustSpeed}
         />
 
         {/* Main Transport Buttons */}

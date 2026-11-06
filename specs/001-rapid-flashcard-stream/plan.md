@@ -2,29 +2,40 @@
 
 **Branch**: `001-rapid-flashcard-stream` | **Date**: 2026-11-05 (Updated: 2026-11-06) | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `specs/001-rapid-flashcard-stream/spec.md` with Granular Duration Controls (1ms step), Favorites Derived Deck Stream, and Single-Word Meaning Ergonomics.
+**Input**: Feature specification from `specs/001-rapid-flashcard-stream/spec.md` with Left Vertical Speed Dock (Floating Overlay), Granular Duration Controls (1ms step), Simplified Bottom Transport Footer, Favorites Derived Deck Stream, and Single-Word Meaning Ergonomics.
 
 ## Summary
 
-The Rapid Flashcard Stream application is a high-speed desktop vocabulary review tool designed for rapid word recognition (e.g. YDS, TOEFL, GRE). The system enables continuous streaming of flashcards at user-defined speeds between 50ms and 2000ms with instant-cut transitions and a locked central optical focus. 
+The Rapid Flashcard Stream application is a high-speed desktop vocabulary review tool designed for rapid word recognition (e.g. YDS, TOEFL, GRE). The system enables continuous streaming of flashcards at user-defined speeds between 50ms and 2000ms with instant-cut transitions, a locked central optical focus, and a dedicated Left Vertical Speed Dock.
 
 ### Core State Machine & Architectural Invariants
 
 1. **Two-Phase State Machine (`currentSide: 'FRONT' | 'BACK'`)**:
    - Sequential presentation: Phase 1 (`FRONT`, English term) for `frontDurationMs`, followed immediately by Phase 2 (`BACK`, Turkish definition) for `backDurationMs`.
    - Tick transitions: on `FRONT` timeout, switch to `BACK` (keep `currentIndex`); on `BACK` timeout, switch to `FRONT` and advance `currentIndex + 1` (or loop to `0`).
-2. **Granular Duration Control & Input Synchronization**:
-   - Range slider: `min="50" max="2000" step="1"`.
-   - Direct Numeric Input: `<input type="number" min="50" max="2000" step="1" />` synchronized bidirectionally.
-   - Duration-Oriented Buttons:
-     - `-` button decreases millisecond duration (`Math.max(50, currentMs - 10)`), making playback faster.
-     - `+` button increases millisecond duration (`Math.min(2000, currentMs + 10)`), giving the user more display time.
-3. **Favorites Mode & Derived Deck Architecture**:
+2. **Left Vertical Speed Dock (Floating Tower Architecture)**:
+   - **Independent Overlay Layer**: The dock is styled with `position: fixed` (or `position: absolute`), `left: 24px`, `top: 50%`, `transform: translateY(-50%)`, `z-index: 20`, and `flex-direction: column`. It does NOT affect document flow or offset the screen's central optical focus, preserving Constitution Principle I (Fixed Focal Point).
+   - **Compact Width (`88px - 110px`)**: Container width is tightly bounded (e.g., `w-24` = 96px) with items aligned along the vertical center axis (`align-items: center`, `gap: 10px` / `gap-2.5`).
+   - **Chromium Native Vertical Slider**: `<input type="range">` has a fixed height of `160px` to `180px` (`h-44` / `min-h-[160px]`) and uses `writing-mode: vertical-lr; direction: rtl;` to naturally map upward dragging to increased duration (ms) and downward dragging to decreased duration (ms).
+   - **Vertical Hierarchy (Top to Bottom)**:
+     1. Speed Icon (`Zap` ⚡) in soft indigo container
+     2. Numeric Input (`[ 50 ] ms`) with `~20.0 kart/sn` rate
+     3. `(+)` Stepper Button (increases ms, slower display) placed directly above the slider
+     4. Vertical Range Slider (`height: 160px-180px`, `step=1`)
+     5. `(-)` Stepper Button (decreases ms, faster display) placed directly below the slider
+     6. Compact Speed Presets (`100ms`, `200ms`, `350ms`, `500ms`, `1000ms`) in a 2-column or vertical stack
+3. **Simplified Bottom Transport Footer**:
+   - Speed adjustment controls are completely removed from the footer.
+   - The bottom bar retains exclusively:
+     - Top: `<ProgressBar />` ("Kart 1 / 30" and "Döngü Açık")
+     - Middle: Transport Controls (Reset `RotateCcw`, Prev `SkipBack`, Play/Pause `Play`/`Pause`, Next `SkipForward`)
+     - Bottom: Keyboard shortcut reminder badges (`Space`, `↑/↓`, `←/→`, `Enter/T`, `F`, `Esc`)
+4. **Favorites Mode & Derived Deck Architecture**:
    - `deckFilter: 'ALL' | 'FAVORITES'` state.
    - Derived array feeding engine: `activeCards = deckFilter === 'FAVORITES' ? cards.filter(c => c.isFavorite) : cards`.
    - Filter switch automatically resets card pointer (`seek(0)`).
    - Empty favorites guard: blocks stream playback and shows an informative notice when 0 favorites exist.
-4. **Single-Word Meaning Ergonomics (Zero Horizontal Saccades)**:
+5. **Single-Word Meaning Ergonomics (Zero Horizontal Saccades)**:
    - 1 English Word = 1 Turkish Word standard across pre-seeded sample data (`src/core/storage/seedData.ts`) and card entry forms.
    - Eliminates reading eye movements across wide text, locking user gaze directly on screen center.
 
@@ -51,8 +62,8 @@ Because `package.json` defines `"type": "module"`, all Electron Main and Preload
 - **Testing**: Vitest (headless unit testing with fake timers and mocked time providers)
 - **Target Platform**: Windows 10/11 Desktop (`.exe` standalone portable application / installer)
 - **Project Type**: Desktop Application (Electron + React)
-- **Performance Goals**: 60–120 FPS smooth rendering, zero timing drift across 50ms–2000ms intervals (1ms step), <2ms card navigation latency
-- **Constraints**: 100% offline-capable, zero external backend/cloud server, strict prohibition of 3D card-flip animations (instant cut only), full keyboard control, strict ESM path resolution in Electron main/preload, strict Single-Side Exclusivity (no stacked front/back)
+- **Performance Goals**: 60–120 FPS smooth rendering, zero timing drift across 50ms–2000ms intervals (1ms step), <2ms card navigation latency, 0px focal layout shift
+- **Constraints**: 100% offline-capable, zero external backend/cloud server, strict prohibition of 3D card-flip animations (instant cut only), full keyboard control, strict ESM path resolution in Electron main/preload, strict Single-Side Exclusivity (no stacked front/back), fixed independent floating dock overlay
 - **Scale/Scope**: Supports decks containing up to 10,000+ words with instantaneous CSV importing and diagnostic reporting
 
 ---
@@ -63,9 +74,9 @@ Because `package.json` defines `"type": "module"`, all Electron Main and Preload
 
 | Constitution Principle | Requirement | Plan Alignment | Status |
 |---|---|---|:---:|
-| **I. Bilişsel Ergonomi ve Sabit Odak** | Fixed optical center, zero 3D flip / slide animations, instant cut transitions, Single-Side Exclusivity, Single-Word Meaning | Stream view locks text in central focal box; transitions switch DOM state instantly; `currentSide` conditional rendering ensures word and meaning are never stacked; single-word Turkish meanings eliminate saccades | **PASS** |
+| **I. Bilişsel Ergonomi ve Sabit Odak** | Fixed optical center, zero 3D flip / slide animations, instant cut transitions, Single-Side Exclusivity, Single-Word Meaning | Stream view locks text in central focal box; Left Vertical Speed Dock uses `fixed` overlay with 0px horizontal shift on center card; single-word Turkish meanings eliminate saccades | **PASS** |
 | **II. Hassas Zamanlama Motoru** | Drift-free 50ms–2000ms loop via `performance.now()` with 1ms precision and delta-time accumulator | `TimingEngine` class implements two-phase transition logic (`FRONT` -> `BACK` -> next card `FRONT`) with 1ms granularity and fake-timer testability | **PASS** |
-| **III. Klavye Öncelikli Kontrol** | `Space` (Play/Pause), `Up/Down` (Duration), `Right/Left` (Nav), `Enter/T` (Face toggle), `F` (Favorite) | Window-level keyboard listener with input-field protection (allows typing in numeric speed input) | **PASS** |
+| **III. Klavye Öncelikli Kontrol** | `Space` (Play/Pause), `Up/Down` (Duration), `Right/Left` (Nav), `Enter/T` (Face toggle), `F` (Favorite) | Window-level keyboard listener with input-field protection (allows typing in numeric speed input on the dock) | **PASS** |
 | **IV. Local-First ve Hataya Dayanıklı Veri** | Offline IndexedDB storage, fault-tolerant CSV parsing with diagnostic reports | Pure Dexie.js client database; streaming CSV parser collects line errors without failing valid lines | **PASS** |
 | **V. Headless İş Mantığı ve Test Edilebilirlik** | Decoupled core in pure TypeScript with unit tests | `TimingEngine`, `CsvParser`, and storage repositories written without React/DOM dependencies and tested via Vitest | **PASS** |
 | **Performans ve Kod Standartları** | Strict TypeScript, zero `any`, minimal overhead | `strict: true` in tsconfig, strict ESM path resolution in Electron (`node:url` + `node:path`) | **PASS** |
@@ -79,12 +90,12 @@ Because `package.json` defines `"type": "module"`, all Electron Main and Preload
 ```text
 specs/001-rapid-flashcard-stream/
 ├── plan.md              # Implementation plan (this file)
-├── research.md          # Phase 0 research decisions (Electron ESM, Dexie, TimingEngine, Granular Duration, Favorites)
+├── research.md          # Phase 0 research decisions (Electron ESM, Dexie, TimingEngine, Vertical Dock, Favorites)
 ├── data-model.md        # Phase 1 data entities, derived deck model, database schema
 ├── quickstart.md        # Phase 1 end-to-end verification guide
 ├── contracts/           # Phase 1 headless API contracts
 │   ├── timing-engine.contract.md        # Two-phase timing engine contract
-│   ├── ui-speed-favorites.contract.md   # SpeedControl & Favorites filter contract
+│   ├── ui-speed-favorites.contract.md   # Left Vertical Speed Dock & Favorites filter contract
 │   ├── csv-parser.contract.md
 │   └── storage.contract.md
 ├── checklists/
@@ -113,13 +124,13 @@ src/
 ├── ui/                               # Presentation layer (React 19 + Tailwind)
 │   ├── components/                   # Reusable ergonomic UI components
 │   │   ├── FocalCardView.tsx         # Single-container conditional face renderer with badges
-│   │   ├── SpeedControl.tsx          # 1ms step range slider, synchronized number input, duration steppers
+│   │   ├── SpeedControl.tsx          # Left Vertical Speed Dock (fixed overlay, vertical slider, steppers, presets)
 │   │   ├── ProgressBar.tsx           # Deck progress indicator
 │   │   ├── ImportReportModal.tsx     # Fault diagnostic modal
 │   │   └── DeckCard.tsx              # Deck selection card
 │   ├── views/                        # Main application screens
 │   │   ├── DashboardView.tsx         # Deck list and CSV import screen
-│   │   └── StreamView.tsx            # Fullscreen rapid review screen (Favorites filter tab, empty state alert)
+│   │   └── StreamView.tsx            # Fullscreen rapid review screen (Hosts floating dock & simplified footer)
 │   ├── hooks/                        # Custom React hooks
 │   │   ├── useTimingEngine.ts        # Bridges headless engine to React state (exposes currentSide)
 │   │   ├── useKeyboardControls.ts    # Global hotkey dispatcher (protects typing in speed input)
@@ -144,4 +155,4 @@ electron-builder.json
 
 ## Complexity Tracking
 
-*No constitution violations. All architecture decisions satisfy the core governance gates.*
+*No constitution violations. Floating dock overlay design strictly protects Constitution Principle I (Fixed Focal Point).*

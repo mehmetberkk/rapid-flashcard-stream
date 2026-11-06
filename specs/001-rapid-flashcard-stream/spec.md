@@ -8,19 +8,19 @@
 
 **Status**: Ready for Planning
 
-**Input**: User description: "Flashcard dosyası yüklenebilecek csv. formatında. Flashcard destesi oluşturulabilecek. Çok pratik şekilde flashcardlar hızı ayarlanır bir şekilde 50 ms - 3000ms ön ve arka yüz gösterilip hızlıca kelime öğrenmek hedeflenecek. Klavye kısayolları da desteklenecek. modern basit bir ui ve ux olacak. Hızlı akış (Rapid Stream) modundaki kart gösterim davranışını şu kurallarla güncelle: 1. Tekil Görünüm Kuralı (Single-Side Exclusivity): Akış ekranında kelime (Ön Yüz) ve anlamı (Arka Yüz) kesinlikle aynı anda veya alt alta gösterilmemelidir. Ekranda her an yalnızca tek bir metin alanı bulunmalıdır. 2. İki Fazlı Döngü (Two-Phase Cycle): Her bir flashcard iki ardışık fazda gösterilir (Faz 1 FRONT: İngilizce kelime frontDurationMs kadar, Faz 2 BACK: Türkçe anlam birebir aynı merkezde backDurationMs kadar). Faz geçişi tamamlandığında bir sonraki kartın Faz 1 FRONT adımına geçilir. 3. Görsel Ayrım: Ön Yüz ve Arka Yüz metin renkleri ve rozet tonları birbirinden farklı olmalıdır. 4. Doğrusal ve Hassas Süre Kontrolü: Hız ayar çubuğu (slider) 1 ms hassasiyetle (step=1) kesintisiz ayarlanabilmeli, buton yönleri süre (ms) odaklı ('-' süre düşürür, '+' süre artırır) çalışmalı ve doğrudan sayısal giriş kutusu (number input) bulunmalıdır. 5. Favorilerim Modu ve Filtreleme: Arayüzde 'Tüm Kartlar' ve 'Favorilerim' arasında filtre bulunmalı, 'Favorilerim' görünümünde akış başlatıldığında yalnızca favori kartlar gösterilmeli, favoriler boşken akış başlatılmak istendiğinde bilgilendirici uyarı verilmelidir. 6. Tek Kelimelik Anlam Kısıtı: Yüksek hızda okuma sırasında yatay göz hareketini (saccade) sıfırlamak için kartların arka yüzündeki Türkçe anlamlar tek bir kelimeden oluşmalı; manuel kart ekleme formunda ve varsayılan örnek destede '1 İngilizce Kelime = 1 Türkçe Kelime' standardı uygulanmalıdır."
+**Input**: User description: "Flashcard dosyası yüklenebilecek csv. formatında. Flashcard destesi oluşturulabilecek. Çok pratik şekilde flashcardlar hızı ayarlanır bir şekilde 50 ms - 3000ms ön ve arka yüz gösterilip hızlıca kelime öğrenmek hedeflenecek. Klavye kısayolları da desteklenecek. modern basit bir ui ve ux olacak. Hızlı akış (Rapid Stream) modundaki kart gösterim davranışını şu kurallarla güncelle: 1. Tekil Görünüm Kuralı (Single-Side Exclusivity): Akış ekranında kelime (Ön Yüz) ve anlamı (Arka Yüz) kesinlikle aynı anda veya alt alta gösterilmemelidir. Ekranda her an yalnızca tek bir metin alanı bulunmalıdır. 2. İki Fazlı Döngü (Two-Phase Cycle): Her bir flashcard iki ardışık fazda gösterilir (Faz 1 FRONT: İngilizce kelime frontDurationMs kadar, Faz 2 BACK: Türkçe anlam birebir aynı merkezde backDurationMs kadar). Faz geçişi tamamlandığında bir sonraki kartın Faz 1 FRONT adımına geçilir. 3. Görsel Ayrım: Ön Yüz ve Arka Yüz metin renkleri ve rozet tonları birbirinden farklı olmalıdır. 4. Doğrusal ve Hassas Süre Kontrolü: Hız ayar çubuğu (slider) 1 ms hassasiyetle (step=1) kesintisiz ayarlanabilmeli, buton yönleri süre (ms) odaklı ('-' süre düşürür, '+' süre artırır) çalışmalı ve doğrudan sayısal giriş kutusu (number input) bulunmalıdır. 5. Favorilerim Modu ve Filtreleme: Arayüzde 'Tüm Kartlar' ve 'Favorilerim' arasında filtre bulunmalı, 'Favorilerim' görünümünde akış başlatıldığında yalnızca favori kartlar gösterilmeli, favoriler boşken akış başlatılmak istendiğinde bilgilendirici uyarı verilmelidir. 6. Tek Kelimelik Anlam Kısıtı: Yüksek hızda okuma sırasında yatay göz hareketini (saccade) sıfırlamak için kartların arka yüzündeki Türkçe anlamlar tek bir kelimeden oluşmalı; manuel kart ekleme formunda ve varsayılan örnek destede '1 İngilizce Kelime = 1 Türkçe Kelime' standardı uygulanmalıdır. 7. Sol Dikey Hız Kontrol Paneli (Left Vertical Speed Dock) ve Alt Bar Sadeleştirmesi: Hız ayarlama panelini alt bardan kaldırıp sol kenara dikey bir kontrol kulesi olarak taşı; merkezdeki kelime ekranın tam ortasında kalmaya devam etmeli (bağımsız katman); dikey panel içi sıralama [⚡ İkon] -> [ 50 ] ms input ve rate bilgisi -> (+) ms artırma -> Dikey Slider (min 160px boy, yukarı ms artar, aşağı ms düşer) -> (-) ms azaltma -> Hazır hız presetleri olmalı; alt barda yalnızca ilerleme çubuğu, oynatma kontrolleri ve kısayol ipuçları kalmalıdır."
 
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Rapid Two-Phase Flashcard Stream & Granular Duration Controls (Priority: P1)
 
 As a language learner reviewing vocabulary,
-I want to stream flashcards sequentially in a two-phase cycle (Front face followed by Back face at the exact same focal center) with single-side exclusivity and granular millisecond duration controls (1ms step slider, duration stepper buttons, and direct numeric input between 50ms and 3000ms),
-So that I can test my recall on the word, verify the meaning without gaze shifts, and dial in the exact cognitive scanning interval suitable for my reading pace.
+I want to stream flashcards sequentially in a two-phase cycle (Front face followed by Back face at the exact same focal center) with single-side exclusivity and tune duration via a dedicated Left Vertical Speed Dock,
+So that I can test my recall on the word, verify the meaning without gaze shifts, and dial in the exact cognitive scanning interval without cluttering the transport controls.
 
-**Why this priority**: Sequential single-side presentation at a locked focal center is essential for high-speed vocabulary acquisition. Furthermore, cognitive recognition thresholds vary by tens of milliseconds; offering 1ms precision and direct numeric entry allows learners to tune speed with surgical precision.
+**Why this priority**: Sequential single-side presentation at a locked focal center is essential for high-speed vocabulary acquisition. Relocating duration controls to a dedicated left vertical dock keeps bottom playback controls uncluttered while preserving the central optical focal axis.
 
-**Independent Test**: Can be tested by starting playback on any deck with at least two cards: verify that only the front word appears at screen center for the configured duration, followed immediately by only the back meaning at the exact same coordinates for the back duration, then transitions immediately to the next card's front word. Verify that front and back never appear together. Verify that moving the slider by 1 unit updates the duration by 1ms, typing an exact value (e.g. 187ms) applies immediately, and pressing `-` decreases milliseconds while `+` increases milliseconds.
+**Independent Test**: Can be tested by starting playback on any deck with at least two cards: verify that only the front word appears at screen center for the configured duration, followed immediately by only the back meaning at the exact same coordinates for the back duration, then transitions immediately to the next card's front word. Verify that front and back never appear together. Verify that the Left Vertical Speed Dock is fixed on the left edge, does not displace the screen's central optical focus, allows 1ms granular tuning and direct numeric entry, and that the bottom bar retains only progress indicators and transport controls.
 
 **Acceptance Scenarios**:
 
@@ -29,11 +29,14 @@ So that I can test my recall on the word, verify the meaning without gaze shifts
 3. **Given** Phase 2 (BACK) reaches expiration, **When** the back timer completes, **Then** the stream transitions instantly to the next card's Phase 1 (FRONT).
 4. **Given** active playback, **When** viewing the screen, **Then** under no circumstances are word and meaning displayed simultaneously or stacked together (Single-Side Exclusivity).
 5. **Given** transitions between Phase 1 (FRONT) and Phase 2 (BACK) and subsequent cards, **When** phases switch, **Then** transitions occur as instant cuts with zero 3D rotation, zero sliding animation, and zero geometric layout shift.
-6. **Given** the duration controls, **When** the user drags the duration slider, **Then** the duration adjusts continuously with 1 millisecond increments (step = 1ms) between 50ms and 3000ms.
-7. **Given** the duration stepper buttons, **When** the user clicks `-`, **Then** the millisecond duration decreases (faster card advance), and **When** the user clicks `+`, **Then** the millisecond duration increases (slower card advance).
-8. **Given** the duration numeric input box, **When** the user types an explicit value (e.g., `187`), **Then** the stream speed updates immediately to that exact value, clamped between 50ms and 3000ms.
+6. **Given** the duration controls in the Left Vertical Speed Dock, **When** the user drags the vertical slider, **Then** the duration adjusts continuously with 1 millisecond increments (step = 1ms) between 50ms and 3000ms (dragging up increases duration in ms, dragging down decreases duration in ms).
+7. **Given** the duration stepper buttons on the vertical dock, **When** the user clicks `-` (below slider), **Then** the millisecond duration decreases (faster card advance), and **When** the user clicks `+` (above slider), **Then** the millisecond duration increases (slower card advance).
+8. **Given** the duration numeric input box on the vertical dock, **When** the user types an explicit value (e.g., `187`), **Then** the stream speed updates immediately to that exact value, clamped between 50ms and 3000ms.
 9. **Given** ongoing streaming, **When** the user pauses playback, **Then** the stream halts immediately on the current card and current phase without resetting progress.
 10. **Given** a paused session, **When** the user manually steps forward or backward, **Then** the display navigates predictably between cards/phases while maintaining single-side exclusivity.
+11. **Given** the Left Vertical Speed Dock, **When** inspecting screen layout, **Then** the dock is positioned as an independent layer on the left screen edge (vertically centered, 24px inset) such that the central focal word remains locked at the exact geometric center of the viewport with 0px horizontal shift.
+12. **Given** the Left Vertical Speed Dock, **When** viewing its layout from top to bottom, **Then** elements are ordered strictly as: ⚡ icon, numeric millisecond input box (`[ 50 ] ms`) with rate indicator (`~20.0 kart/sn`), `(+)` duration increase button, vertical slider with at least 160px height, `(-)` duration decrease button, and preset speed buttons (`100ms`, `200ms`, `350ms`, `500ms`, `1000ms`).
+13. **Given** the bottom control bar, **When** viewing its contents, **Then** it contains exclusively progress indicators ("Kart X / Y" and "Döngü Açık"), playback transport controls (Reset, Previous, Play/Pause, Next), and keyboard shortcut reminder badges, with zero speed adjustment controls present in the bottom footer.
 
 ---
 
@@ -125,6 +128,7 @@ So that my eye gaze stays locked on a single focal point with zero horizontal re
 - **Out-of-Bounds Manual Speed Input**: If a user manually types a value below 50ms into the numeric input, it must automatically clamp to 50ms. If a user types above 3000ms, it must automatically clamp to 3000ms. Non-numeric characters must be ignored.
 - **Single-Card Deck / Single-Favorite Deck**: If a deck (or filtered favorites list) contains only one card, the stream must cycle Phase 1 (FRONT) -> Phase 2 (BACK) and loop smoothly according to loop settings without index or state errors.
 - **Ultra-Fast Stream Boundaries (50ms)**: When set to 50ms per phase (20 phase transitions per second), the system must maintain timer accuracy without lagging, skipping unaccounted phases/cards, or freezing the UI.
+- **Compact Viewport Independence**: On smaller desktop viewports, the Left Vertical Speed Dock must remain anchored to the left boundary without overlapping or encroaching upon the central 300x200 pixel focal area.
 - **Large CSV Import**: When a user imports a CSV containing 5,000+ words, the import process must provide immediate visual feedback (e.g., progress status) and not freeze the user interface.
 - **Non-Latin or Special Characters**: When cards contain accents, Turkish characters (ç, ğ, ı, ö, ş, ü), or punctuation, the text must render cleanly without encoding corruption in both front and back phases.
 
@@ -155,10 +159,7 @@ So that my eye gaze stays locked on a single focal point with zero horizontal re
   - `F`: Toggle favorite status on current card.
   - `Escape`: Exit stream back to dashboard.
 - **FR-012**: System MUST allow manual stepping through cards and phases when the stream is paused.
-- **FR-013**: System MUST provide granular duration controls:
-  - Linear slider with 1 millisecond resolution (`step=1`) covering the full 50ms – 3000ms range.
-  - Duration-oriented stepper buttons: `-` button MUST decrease millisecond duration (speeding up card delivery) and `+` button MUST increase millisecond duration (slowing down card delivery).
-  - Direct numeric input field allowing users to type exact millisecond values (clamped between 50ms and 3000ms).
+- **FR-013**: System MUST provide granular duration controls hosted within a dedicated Left Vertical Speed Dock positioned on the left edge of the screen (vertically centered, 24px inset) as an independent layer that does not displace or offset the central optical focal axis.
 - **FR-014**: System MUST display progress indicators (current card index, active phase, and total card count in the active filtered deck).
 - **FR-015**: System MUST support a loop mode toggle (automatically restart from the first card when reaching the end of the deck or pause on completion).
 - **FR-016**: System MUST visually differentiate Front and Back phases at the focal point using distinct high-contrast typography colors and subtle status indicators (e.g., Crisp White for FRONT/word; Soft Emerald/Cyan for BACK/meaning) so learners immediately recognize card side without shifting focal gaze.
@@ -166,6 +167,14 @@ So that my eye gaze stays locked on a single focal point with zero horizontal re
 - **FR-018**: When "Favorilerim" mode is active, the system MUST stream exclusively favorited cards and recalculate playback progress indicators based on the favorited subset.
 - **FR-019**: System MUST prevent stream execution and display an informative notice if the user triggers playback in "Favorilerim" mode when zero cards are favorited.
 - **FR-020**: System MUST uphold Single-Word Meaning ergonomics (1 English Word = 1 Turkish Word) in pre-seeded sample decks and guide/validate manual card creation to eliminate horizontal eye saccades during high-speed review.
+- **FR-021**: System MUST organize the Left Vertical Speed Dock in top-to-bottom sequence:
+  - Speed Icon (`⚡`).
+  - Direct numeric millisecond input (`[ 50 ] ms`) paired with a cards-per-second rate indicator (`~20.0 kart/sn`).
+  - Duration increase button `(+)` placed directly above the slider.
+  - Linear vertical duration slider with a minimum height of 160px and 1ms granularity (`step=1`) where dragging upward increases duration (ms) and dragging downward decreases duration (ms).
+  - Duration decrease button `(-)` placed directly below the slider.
+  - Preset duration shortcuts (`100ms`, `200ms`, `350ms`, `500ms`, `1000ms`) arranged compactly.
+- **FR-022**: System MUST streamline the bottom stream control bar to contain exclusively the deck progress indicators ("Kart X / Y", "Döngü Açık"), playback transport controls (Reset, Step Back, Play/Pause, Step Forward), and keyboard shortcut reminder badges, with zero speed adjustment controls located in the bottom bar.
 
 ### Key Entities
 
@@ -183,10 +192,12 @@ So that my eye gaze stays locked on a single focal point with zero horizontal re
 - **SC-003**: 100% of core stream actions (play, pause, step forward, step backward, duration adjustment, face toggle, favorite toggle) can be performed entirely via keyboard without mouse interaction.
 - **SC-004**: During a 5-minute continuous rapid scanning session, user eye gaze remains stationary within a central 300x200 pixel focal area on standard desktop viewports, with zero visual layout shift between Front and Back phases.
 - **SC-005**: 100% compliance with Single-Side Exclusivity: at no point during automated playback or manual stepping do Front (term) and Back (meaning) texts appear simultaneously on screen.
-- **SC-006**: Users can set stream duration to any exact millisecond value (e.g. 187ms) with 1ms granularity using the slider, steppers, or direct numeric typing.
+- **SC-006**: Users can set stream duration to any exact millisecond value (e.g. 187ms) with 1ms granularity using the vertical slider, steppers, or direct numeric typing.
 - **SC-007**: When switching to "Favorilerim" mode, the stream cycles 100% exclusively through favorited cards; if 0 cards are favorited, playback is prevented with a clear user notice.
 - **SC-008**: 100% of default pre-seeded vocabulary cards and newly validated entries have single-word meanings, ensuring zero horizontal saccades.
 - **SC-009**: All user data (decks, cards, favorite states, duration settings) is retained across application restarts with zero data loss.
+- **SC-010**: The central focal text area remains centered on the exact geometric midpoint of the viewport, with 0px horizontal shift or offset when the Left Vertical Speed Dock is rendered.
+- **SC-011**: The bottom control bar contains exclusively progress status, transport controls, and shortcut badges, eliminating visual clutter from the primary transport navigation region.
 
 ## Assumptions
 
@@ -196,3 +207,4 @@ So that my eye gaze stays locked on a single focal point with zero horizontal re
 - The single-word meaning constraint is primarily designed for high-speed scanning ergonomic optimization; existing multi-word cards from external imports will still render cleanly centered without crashing.
 - No remote server or account creation is required for the application; all operations are local-first.
 - Hardware keyboard input will take precedence during review, while on-screen buttons remain available for touch and mouse interaction.
+- The Left Vertical Speed Dock is styled as a fixed overlay layer to ensure that flexbox or layout flow does not push the central focal card away from the true screen center.

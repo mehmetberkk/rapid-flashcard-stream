@@ -38,6 +38,11 @@ describe('Keyboard Controls Unit Tests', () => {
     expect(shouldIgnoreKeyboardEvent({ tagName: 'BODY' })).toBe(false);
   });
 
+  it('safely suppresses stream playback shortcuts when user focuses on the vertical speed dock numeric input', () => {
+    const verticalDockNumericInput = { tagName: 'INPUT', type: 'number' };
+    expect(shouldIgnoreKeyboardEvent(verticalDockNumericInput)).toBe(true);
+  });
+
   it('accurately maps key names to stream actions', () => {
     expect(mapKeyToStreamAction(' ')).toBe('PLAY_PAUSE');
     expect(mapKeyToStreamAction('Space')).toBe('PLAY_PAUSE');

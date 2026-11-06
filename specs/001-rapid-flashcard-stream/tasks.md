@@ -178,6 +178,30 @@
 
 ---
 
+## Phase 12: Left Vertical Speed Dock & Bottom Bar Simplification (User Story 1 Refactor)
+
+**Purpose**: Relocate speed controls from the bottom footer to an independent Left Vertical Speed Dock (`fixed left-6 top-1/2 -translate-y-1/2`), implement a native vertical slider (`writing-mode: vertical-lr; direction: rtl`, height 160px–180px, width 88px–110px), compact preset buttons, and simplify the bottom bar to progress and transport controls only.
+
+- [X] T059 [P] [US1] Refactor `SpeedControl` component in `src/ui/components/SpeedControl.tsx` to implement the Left Vertical Speed Dock:
+  - Structure as a compact vertical tower (`w-24`, 96px width, `flex flex-col items-center gap-2.5 bg-slate-900/90 backdrop-blur border border-slate-800 rounded-3xl p-3 shadow-2xl`)
+  - Speed Icon (`Zap` ⚡) in soft indigo container at the top
+  - Direct numeric input (`[ 50 ] ms`) with rate indicator (`~20.0 kart/sn`)
+  - `(+)` Stepper Button (duration increase / slower flow) placed directly above the slider
+  - Native vertical slider: `<input type="range">` with fixed height (`h-44` / 176px), `min=50`, `max=2000`, `step=1`, and inline CSS `style={{ writingMode: 'vertical-lr', direction: 'rtl' }}` so pulling up increases ms and pulling down decreases ms
+  - `(-)` Stepper Button (duration decrease / faster flow) placed directly below the slider
+  - Compact preset buttons (`100ms`, `200ms`, `350ms`, `500ms`, `1000ms`) arranged in a 2-column grid (`grid grid-cols-2 gap-1 w-full`)
+- [X] T060 [US1] Mount Left Vertical Speed Dock as an independent floating overlay in `src/ui/views/StreamView.tsx`:
+  - Position container at `fixed left-6 top-1/2 -translate-y-1/2 z-20` (out-of-flow)
+  - Ensure central optical container (`<main>` with `FocalCardView`) maintains 0px horizontal layout shift and remains strictly centered on screen
+- [X] T061 [US1] Streamline bottom control footer in `src/ui/views/StreamView.tsx`:
+  - Remove `SpeedControl` from `footer`
+  - Retain exclusively: `ProgressBar` ("Kart X / Y", "Döngü Açık"), Transport Buttons (`RotateCcw`, `SkipBack`, `Play`/`Pause`, `SkipForward`), and keyboard shortcut reminder badges
+- [X] T062 [P] [US1] Verify input protection and shortcuts in `tests/unit/keyboard-controls.test.ts` to ensure focused typing in the dock's numeric input suppresses playback hotkeys
+- [X] T063 [P] Execute Vitest unit test suite to verify 100% passing tests across all test suites in `tests/unit/`
+- [X] T064 Execute production build and packaging with `npm run build` and `npm run package` to verify Windows `.exe` at `dist-release/win-unpacked/Rapid Flashcard Stream.exe`
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
@@ -210,27 +234,29 @@ Phase 10: Two-Phase Sequential State Machine Refactoring (T043-T050) [DONE]
        │
        ▼
 Phase 11: Granular Duration Control, Favorites & Single-Word Ergonomics (T051-T058) [DONE]
-       ├─ T051 (Models) & T052 (seedData) [DONE]
-       ├─ T053 (SpeedControl) [DONE]
-       ├─ T054 (Favorites filter & derived deck in StreamView) [DONE]
-       ├─ T055 (useTimingEngine & keyboard controls) [DONE]
-       ├─ T056 (timing-engine test update) [DONE]
-       ├─ T057 (Vitest 100% pass) [DONE]
-       └─ T058 (Build & package verification) [DONE]
+       │
+       ▼
+Phase 12: Left Vertical Speed Dock & Bottom Bar Simplification (T059-T064) [DONE]
+       ├─ T059 (SpeedControl vertical tower refactor) [DONE]
+       ├─ T060 (StreamView floating dock mounting) [DONE]
+       ├─ T061 (StreamView bottom footer streamlining) [DONE]
+       ├─ T062 (Keyboard controls input protection verification) [DONE]
+       ├─ T063 (Vitest 100% test pass) [DONE]
+       └─ T064 (Production build & Windows .exe package) [DONE]
 ```
 
-### Parallel Opportunities in Phase 11
+### Parallel Opportunities in Phase 12
 
-- **T051** (`models/index.ts`), **T052** (`seedData.ts`), and **T056** (`timing-engine.test.ts`) can be modified concurrently as they touch independent files.
-- **T053** (`SpeedControl.tsx`) and **T054** (`StreamView.tsx`) can be developed and integrated sequentially.
-- **T057** and **T058** execute at the completion checkpoint.
+- **T059** (`SpeedControl.tsx`) can be coded while **T062** (`keyboard-controls.test.ts`) is verified.
+- **T060** & **T061** (`StreamView.tsx`) can be implemented in unified layout updates.
+- **T063** and **T064** run at the completion checkpoint.
 
 ---
 
 ## Notes
 
-- Total Tasks: 58 (T001 - T058)
-- Completed Tasks: 58 (T001 - T058)
+- Total Tasks: 64 (T001 - T064)
+- Completed Tasks: 64 (T001 - T064)
 - Pending Tasks: 0
 - Target Executable: `dist-release/win-unpacked/Rapid Flashcard Stream.exe` (188 MB)
 - Format Verification: 100% compliant with `- [ ] [TaskID] [P?] [Story?] Description with file path` standard.

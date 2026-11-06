@@ -67,15 +67,31 @@ The resulting standalone executable will be generated at:
 4. **Card Advance**:
    - Upon completion of Phase 2, the engine advances to `currentIndex + 1` and resets to Phase 1 (`FRONT`).
 
-### Scenario C: Granular Duration Control (1ms Step, Input Sync, Stepper Direction)
-1. In the streaming view, observe the speed control panel.
-2. Drag the slider: verify smooth 1ms step adjustments between 50ms and 2000ms.
-3. Click `-` button: verify the millisecond value decreases (faster flow).
-4. Click `+` button: verify the millisecond value increases (slower flow).
-5. Click the numeric input box, type `187`, and press Enter / click away:
-   - Verify slider and engine update immediately to 187ms.
+### Scenario C: Left Vertical Speed Dock & Granular Control
+1. In the streaming view (`StreamView`), observe the left screen edge:
+   - Verify that the speed control panel is positioned as a vertical tower fixed on the left margin (`left: 24px`, vertically centered, width `88px - 110px`).
+   - Verify that the central vocabulary card remains in the exact horizontal center of the viewport (0px layout displacement).
+2. Inside the dock, inspect the elements from top to bottom:
+   - Speed icon (`⚡`)
+   - Direct numeric input (`[ 50 ] ms`) and cards/sec conversion
+   - `(+)` duration button (increases ms)
+   - Vertical range slider with fixed height (160px–180px); dragging upward increases ms, dragging downward decreases ms
+   - `(-)` duration button (decreases ms)
+   - Preset buttons (`100ms`, `200ms`, `350ms`, `500ms`, `1000ms`)
+3. Test interactions:
+   - Drag the slider upward: verify duration increases by 1ms steps.
+   - Click `+` or `-`: verify ±10ms step updates.
+   - Click numeric input, type `240`: verify immediate sync.
 
-### Scenario D: Favorites Mode & Derived Deck Isolation
+### Scenario D: Simplified Bottom Bar
+1. In the streaming view, inspect the bottom footer:
+   - Verify that the speed slider and numeric input are completely absent from the bottom footer.
+   - Verify the footer contains only:
+     - Deck Progress Bar ("Kart X / Y" and "Döngü Açık")
+     - Transport Controls (Reset, Previous, Play/Pause, Next)
+     - Keyboard shortcut reminder badges
+
+### Scenario E: Favorites Mode & Derived Deck Isolation
 1. In a deck, click the Star icon on 2 specific cards (or press `F` during stream).
 2. Toggle the filter from "Tüm Kartlar" to "Favorilerim".
 3. **Expected Outcome**:
@@ -84,7 +100,7 @@ The resulting standalone executable will be generated at:
 4. Switch to a deck with 0 favorited cards, toggle "Favorilerim", and attempt to start playback:
    - Verify a clear informative warning is presented ("Favorilere eklenmiş kart bulunmuyor") and playback does not crash or execute.
 
-### Scenario E: Single-Word Meaning Ergonomics
+### Scenario F: Single-Word Meaning Ergonomics
 1. Inspect the pre-seeded default deck cards ("YDS Sık Çıkan Kelimeler").
 2. **Expected Outcome**:
    - Every Turkish meaning is strictly a single word (e.g. `abandon -> terk`, `accurate -> doğru`).
