@@ -1,0 +1,15 @@
+{
+  "appId": "com.yds.rapidflashcardstream",
+  "productName": "Rapid Flashcard Stream",
+  "directories": {
+    "output": "dist-release"
+  },
+  "files": [
+    "dist/**/*",
+    "dist-electron/**/*"
+  ],
+  "win": {
+    "target": "dir",
+    "artifactName": "${productName}-${version}.${ext}"
+  }
+}

@@ -1,0 +1,30 @@
+# Node dependencies
+node_modules/
+
+# Build and distribution
+dist/
+dist-electron/
+dist-release/
+build/
+release/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
